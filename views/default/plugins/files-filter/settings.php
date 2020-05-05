@@ -12,9 +12,10 @@ $document_filter_setting = $vars['entity']->filter_documents;
 
 
 
-$excel_filter_setting = $vars['entity']->excel_filter;
-$mp3_filter_setting = $vars['entity']->mp3_filter;
-$pdf_filter_setting = $vars['entity']->pdf_filter;
+$spreadsheets_filter_setting = $vars['entity']->filter_spreadsheets;
+
+$video_filter_setting = $vars['entity']->filter_video;
+$pdf_filter_setting = $vars['entity']->filter_pdf;
 
 
 
@@ -72,50 +73,55 @@ if ($filter_setting == 1)
 ]);
     
     
-?> 
+    
+    echo elgg_view_input('select',[
+    
+    'label' => elgg_echo('files-filter:spreadsheets:settings'),
+    'name' => 'params[filter_spreadsheets]',
+    'options_values' => array(
+                '0' => '',
+		'1' => elgg_echo('files-filter:yes'),
+                '2' => elgg_echo('files-filter:no'),
+                
+                
+        
+	),
+    'required' => false,
+    'value' => $spreadsheets_filter_setting,
+]);
+    
+    
+    echo elgg_view_input('select',[
+    
+    'label' => elgg_echo('files-filter:pdf:settings'),
+    'name' => 'params[filter_pdf]',
+    'options_values' => array(
+                '0' => '',
+		'1' => elgg_echo('files-filter:yes'),
+                '2' => elgg_echo('files-filter:no'),
+                
+                
+        
+	),
+    'required' => false,
+    'value' => $pdf_filter_setting,
+]);
+    
+    echo elgg_view_input('select',[
+    
+    'label' => elgg_echo('files-filter:video:settings'),
+    'name' => 'params[filter_video]',
+    'options_values' => array(
+                '0' => '',
+		'1' => elgg_echo('files-filter:yes'),
+                '2' => elgg_echo('files-filter:no'),
+                
+                
+        
+	),
+    'required' => false,
+    'value' => $video_filter_setting,
+]);
+    
 
-
-<p>
-  <b>Permitir documentos Excel?</b>
-
-<?php
-
-echo elgg_view('input/dropdown',array(
-'name' => 'params[excel_filter]', 
-'options_values'=> array( '0' => '  ', '1'=>'Yes','2'=>'No'),
-'value'=> $excel_filter_setting));
-
- ?>
-</p>
-
-<p>
-  <b>Permitir archivos PDF?</b>
-
-<?php
-
-echo elgg_view('input/dropdown',array(
-'name' => 'params[pdf_filter]', 
-'options_values'=> array( '0' => '  ', '1'=>'Yes','2'=>'No'),
-'value'=> $pdf_filter_setting));
-
- ?>
-</p>
-
-
-<p>
-  <b>Permitir archivos MP4?</b>
-
-<?php
-
-echo elgg_view('input/dropdown',array(
-'name' => 'params[mp3_filter]', 
-'options_values'=> array( '0' => '  ', '1'=>'Yes','2'=>'No'),
-'value'=> $mp3_filter_setting));
-
- ?>
-</p>
-
-
-<?php
 }
-?>

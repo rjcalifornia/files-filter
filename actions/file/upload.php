@@ -12,10 +12,10 @@ $filter_images = elgg_get_plugin_setting('allow_images', 'files-filter');
 
 $filter_documents = elgg_get_plugin_setting('filter_documents', 'files-filter');
 
-$filter_excel = elgg_get_plugin_setting('excel_filter', 'files-filter'); 
+$filter_excel = elgg_get_plugin_setting('filter_spreadsheets', 'files-filter'); 
 
-$filter_mp3 = elgg_get_plugin_setting('mp3_filter', 'files-filter'); 
-$filter_pdf = elgg_get_plugin_setting('pdf_filter', 'files-filter'); 
+$filter_mp3 = elgg_get_plugin_setting('filter_video', 'files-filter'); 
+$filter_pdf = elgg_get_plugin_setting('filter_pdf', 'files-filter'); 
 
 // Get variables
 $title = get_input("title");
@@ -80,12 +80,46 @@ $file->tags = $tags;
 
 
 
-$documents_mimetypes = array('application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/vnd.oasis.opendocument.text');
+$documents_mimetypes = array(
+    'application/msword', 
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 
+    'application/vnd.oasis.opendocument.text'
+    );
 
-$images_mimetypes = array('image/jpeg', 'image/png', 'image/bmp', 'image/gif', 'image/tiff', 'image/svg');
+$images_mimetypes = array(
+    'image/jpeg', 
+    'image/png', 
+    'image/bmp', 
+    'image/gif', 
+    'image/tiff', 
+    'image/svg'
+    );
 
-$excel = 'application/vnd.ms-excel';
-$mp3_1 = 'video/mp4';
+$excel_mimetypes = array(
+    'application/vnd.ms-excel', 
+    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 
+    'application/vnd.openxmlformats-officedocument.spreadsheetml.template', 
+    'application/vnd.ms-excel.sheet.macroenabled.12', 
+    'application/vnd.oasis.opendocument.spreadsheet',
+    'application/vnd.oasis.opendocument.spreadsheet-template'
+    );
+
+$video_mimetypes = array(
+    'video/mp4', 
+    'video/x-msvideo', 
+    'video/x-ms-wmv',
+    'video/3gpp',
+    'video/h264',
+    'video/h263',
+    'video/x-m4v',
+    'video/mpeg',
+    'video/ogg',
+    'video/webm',
+    'video/quicktime',
+    'video/x-flv'
+    
+    );
+
 $pdf_docs = 'application/pdf';
 
 $check_file_type = ElggFile::detectMimeType($_FILES['upload']['tmp_name'], $_FILES['upload']['type']);
@@ -203,9 +237,8 @@ if($filter_enabled == 1)
 
 
 
-	if($filter_mp3 == 1)
-	{
-		if ($check_file_type == $mp3_1)
+	
+		if ($filter_mp3 == 1 && in_array($check_file_type, $video_mimetypes))
 			{
 
 					if (isset($_FILES['upload']['name']) && !empty($_FILES['upload']['name'])) {
@@ -320,11 +353,10 @@ if($filter_enabled == 1)
 
 			}
 			
-	}
+	
 
-if($filter_pdf == 1)
-	{
-		if ($check_file_type == $pdf_docs)
+
+		if ($filter_pdf == 1 && $check_file_type == $pdf_docs)
 			{
 
 					if (isset($_FILES['upload']['name']) && !empty($_FILES['upload']['name'])) {
@@ -439,7 +471,7 @@ if($filter_pdf == 1)
 
 			}
 			
-	}
+	
 
 
 
@@ -547,9 +579,8 @@ if($filter_pdf == 1)
 
 
 
-if($filter_excel == 1)
-	{
-		if ($check_file_type == $excel)
+
+		if ($filter_excel == 1 && in_array($check_file_type, $excel_mimetypes))
 			{
 					if (isset($_FILES['upload']['name']) && !empty($_FILES['upload']['name'])) {
 					
@@ -657,7 +688,7 @@ if($filter_excel == 1)
 			
 			}
 			
-	}
+	
 	
 	
 	
