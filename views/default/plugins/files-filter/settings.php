@@ -17,51 +17,63 @@ $mp3_filter_setting = $vars['entity']->mp3_filter;
 $pdf_filter_setting = $vars['entity']->pdf_filter;
 
 
-?>
 
+echo elgg_view_input('select',[
+    
+    'label' => elgg_echo('files-filter:settings'),
+    'name' => 'params[enable_filter]',
+    'options_values' => array(
+                '0' => '',
+		'1' => elgg_echo('files-filter:yes'),
+                '2' => elgg_echo('files-filter:no'),
+                
+                
+        
+	),
+    'required' => true,
+    'value' => $filter_setting,
+]);
 
-<p>
-  <b>Utilizar el Filtro de Archivos?</b>
-
-<?php
-
-echo elgg_view('input/dropdown',array(
-'name' => 'params[enable_filter]', 
-'options_values'=> array( '0' => '  ', '1'=>'Yes','2'=>'No'),
-'value'=> $filter_setting));
-
- ?>
-</p>
-<?php
 
 if ($filter_setting == 1)
 { 
-?>
-<p>
-  <b>Permitir archivos JPG?</b>
+    
+    echo elgg_view_input('select',[
+    
+    'label' => elgg_echo('files-filter:image:settings'),
+    'name' => 'params[allow_images]',
+    'options_values' => array(
+                '0' => '',
+		'1' => elgg_echo('files-filter:yes'),
+                '2' => elgg_echo('files-filter:no'),
+                
+                
+        
+	),
+    'required' => false,
+    'value' => $images_filter_setting,
+]);
+    
+    
+    echo elgg_view_input('select',[
+    
+    'label' => elgg_echo('files-filter:documents:settings'),
+    'name' => 'params[filter_documents]',
+    'options_values' => array(
+                '0' => '',
+		'1' => elgg_echo('files-filter:yes'),
+                '2' => elgg_echo('files-filter:no'),
+                
+                
+        
+	),
+    'required' => false,
+    'value' => $document_filter_setting,
+]);
+    
+    
+?> 
 
-<?php
-
-echo elgg_view('input/dropdown',array(
-'name' => 'params[allow_images]', 
-'options_values'=> array( '0' => '  ', '1'=>'Yes','2'=>'No'),
-'value'=> $images_filter_setting));
-
- ?>
-</p>
-
-<p>
-  <b>Permitir documentos de Word?</b>
-
-<?php
-
-echo elgg_view('input/dropdown',array(
-'name' => 'params[filter_documents]', 
-'options_values'=> array( '0' => '  ', '1'=>'Yes','2'=>'No'),
-'value'=> $document_filter_setting));
-
- ?>
-</p>
 
 <p>
   <b>Permitir documentos Excel?</b>
